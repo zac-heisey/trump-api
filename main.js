@@ -9,7 +9,7 @@ xhr.onreadystatechange = function() {
     if (xhr.status >= 200 && xhr.status < 300) {
         // This will run when the request is successful
         var data = JSON.parse(xhr.responseText);
-        p.textContent = data._embedded.quotes[0].value;
+        p.textContent = data._embedded.quotes[10].value;
         console.log('success!', xhr);
     } else {
         // This will run when it's not
@@ -17,5 +17,14 @@ xhr.onreadystatechange = function() {
     }
 };
 
-xhr.open('GET', 'https://api.tronalddump.io/search/quote?query=obama');
+// Using CORS proxy to avoid same-origin policy problems (see details below)
+xhr.open('GET', 'https://cors-anywhere.herokuapp.com/https://api.tronalddump.io/search/quote?query=obama');
 xhr.send();
+
+// More info here: https://stackoverflow.com/questions/43871637/no-access-control-allow-origin-header-is-present-on-the-requested-resource-whe/43881141
+
+/** Working CORS proxies:
+ * https://cors-anywhere.herokuapp.com/
+ * https://codetabs.com/cors-proxy/cors-proxy.html
+ * https://allorigins.win/
+**/
